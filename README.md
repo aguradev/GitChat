@@ -1,6 +1,6 @@
 # Gitchat App
 
-Just Chat APP usually but for git user.
+Just a general chat application, but for git users.
 
 Stack :
 
