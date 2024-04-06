@@ -5,9 +5,9 @@ const initalState = {
   setTheme: () => null,
 };
 
-const themeProviderContext = createContext(initalState);
+const ThemeProviderContext = createContext(initalState);
 
-function ThemeProvider({
+export function ThemeProvider({
   defaultTheme = "system",
   storageKey = "ui-theme",
   children,
@@ -44,19 +44,18 @@ function ThemeProvider({
   };
 
   return (
-    <themeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider {...props} value={value}>
       {children}
-    </themeProviderContext.Provider>
+    </ThemeProviderContext.Provider>
   );
 }
 
-const UseTheme = () => {
-  const context = useContext(themeProviderContext);
+export const UseTheme = () => {
+  const context = useContext(ThemeProviderContext);
 
-  if (context === undefined)
+  if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider");
+  }
 
   return context;
 };
-
-export { UseTheme, ThemeProvider };
