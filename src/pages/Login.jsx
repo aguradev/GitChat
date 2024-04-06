@@ -8,6 +8,9 @@ const LoginPage = () => {
     try {
       const { data, err } = await supabaseConfig.auth.signInWithOAuth({
         provider: provider,
+        options: {
+          redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
+        },
       });
 
       if (err) {
