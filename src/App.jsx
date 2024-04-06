@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/components/provider/theme";
 import { useEffect, useState } from "react";
 import supabase from "@/services/supabase";
 
@@ -17,7 +16,7 @@ function App() {
         setTimeout(() => {
           setLoading(false);
           res(true);
-        }, 1000);
+        }, 1500);
       });
     }
 
