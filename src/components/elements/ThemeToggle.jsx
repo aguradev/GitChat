@@ -13,9 +13,13 @@ function LightMode() {
 
 export default function ThemeToggle() {
   const { setTheme } = UseTheme();
-  const [statusTheme, setStatusTheme] = useState(
-    () => localStorage.getItem("ui-theme") || "system"
-  );
+  const [statusTheme, setStatusTheme] = useState("system");
+
+  useState(() => {
+    if (localStorage.getItem("ui-theme")) {
+      setStatusTheme(localStorage.getItem("ui-theme"));
+    }
+  }, []);
 
   function changeTheme() {
     console.log("change themes");

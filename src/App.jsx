@@ -1,32 +1,45 @@
 import { ThemeProvider } from "@/components/provider/theme";
-import LoginPage from "@/pages/Login";
-import ThemeToggle from "./components/elements/ThemeToggle";
-import supabase from "@/services/supabase";
 import { useEffect, useState } from "react";
+import supabase from "@/services/supabase";
+
+import LoaderSection from "@/components/elements/Loader";
+import LoginPage from "@/pages/Login";
+import Home from "@/pages/Home";
+import LayoutApp from "./components/layouts/main";
 
 function App() {
   const [userSession, setUserSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function updateStateLoading() {
+      await new Promise((res) => {
+        setTimeout(() => {
+          setLoading(false);
+          res(true);
+        }, 1000);
+      });
+    }
+
     async function getSessionUser() {
       const { data } = await supabase.auth.getSession();
 
       if (data) {
         const { session } = data;
         setUserSession(session);
-        console.log("before", session);
 
         const {
           data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, session) => {
-          setUserSession(session);
+          setUserSession(session?.user);
         });
 
-        setTimeout(() => setLoading(false), 3000);
+        await updateStateLoading();
 
         return () => subscription.unsubscribe();
       }
+
+      await updateStateLoading();
 
       return;
     }
@@ -34,31 +47,36 @@ function App() {
     getSessionUser();
   }, []);
 
+  async function SignOutHandler() {
+    await supabase.auth.signOut();
+    setLoading(true);
+  }
+
+  useEffect(() => {
+    if (loading) {
+      const timerLoading = setTimeout(() => setLoading(false), 1000);
+      return () => clearInterval(timerLoading);
+    }
+
+    return;
+  }, [loading]);
+
   return (
     <>
-      <ThemeProvider defaultTheme="system" storageKey="ui-theme">
+      <LayoutApp>
         <main className="relative">
-          <nav className="p-4">
-            <div className="flex items-center justify-between mx-auto small-container">
-              <div className="text-2xl font-bold">GitChat 💬</div>
-
-              <div>
-                <ThemeToggle />
-              </div>
-            </div>
-          </nav>
-
           {loading ? (
-            <div>loading...</div>
+            <LoaderSection />
           ) : userSession ? (
-            <section className="small-container">
-              <h1>Welcome</h1>
-            </section>
+            <Home
+              user={userSession.user_metadata}
+              logoutEvent={SignOutHandler}
+            />
           ) : (
             <LoginPage />
           )}
         </main>
-      </ThemeProvider>
+      </LayoutApp>
     </>
   );
 }

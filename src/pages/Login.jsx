@@ -5,11 +5,17 @@ const LoginPage = () => {
   const supabaseConfig = supabase;
 
   async function handleOauthSignIn(provider) {
-    const { data, err } = await supabaseConfig.auth.signInWithOAuth({
-      provider: provider,
-    });
+    try {
+      const { data, err } = await supabaseConfig.auth.signInWithOAuth({
+        provider: provider,
+      });
 
-    console.log(data);
+      if (err) {
+        throw new Error(err);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -19,7 +25,10 @@ const LoginPage = () => {
           Welcome to GitChat 💬
         </h1>
         <div className="flex flex-col gap-y-3">
-          <Button className="flex overflow-hidden gap-x-2">
+          <Button
+            className="flex overflow-hidden gap-x-2"
+            onClick={() => handleOauthSignIn("google")}
+          >
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
               className="w-[18px] h-[18px]"
