@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import supabase from "@/services/supabase";
+import "boxicons";
 
 const LoginPage = () => {
   const supabaseConfig = supabase;
@@ -24,9 +25,7 @@ const LoginPage = () => {
   return (
     <>
       <section className={`max-w-[500px] mx-auto py-72 px-2`}>
-        <h1 className="mb-8 text-4xl font-bold text-center">
-          Welcome to GitChat 💬
-        </h1>
+        <h1 className="text-center h1">Welcome to GitChat 💬</h1>
         <div className="flex flex-col gap-y-3">
           <Button
             className="flex overflow-hidden gap-x-2"
@@ -42,10 +41,7 @@ const LoginPage = () => {
             className="flex overflow-hidden gap-x-2"
             onClick={() => handleOauthSignIn("github")}
           >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-              className="w-[18px] h-[18px]"
-            />
+            <box-icon type="logo" name="github" color="silver"></box-icon>
             Sign in with github
           </Button>
         </div>
