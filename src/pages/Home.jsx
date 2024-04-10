@@ -1,5 +1,5 @@
 import { UseAppContext } from "@/components/context/AppContext";
-import ChatLayout from "@/components/layouts/ChatApp";
+import { ChatLayout } from "@/components/layouts/ChatApp";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 

@@ -3,3 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+*:focus-visible {
+  --tw-ring-offset-width: 0px !important;
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}

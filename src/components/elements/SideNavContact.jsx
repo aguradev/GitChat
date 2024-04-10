@@ -1,13 +1,20 @@
+import { useState } from "react";
 import { Input } from "@components/ui/input";
 import ContactList from "./ContactList";
+import { UseAppContext } from "@components/context/AppContext";
 import "boxicons";
-import { useState } from "react";
 
 const SearchChatInput = () => {
+  const { theme } = UseAppContext();
+
   return (
     <div className="relative">
       <label htmlFor="search_chat" className="absolute top-2.5 left-4">
-        <box-icon name="search" color="white" size="16px"></box-icon>
+        <box-icon
+          name="search"
+          size="16px"
+          color={theme === "dark" ? "white" : "black"}
+        ></box-icon>
       </label>
       <Input
         className="pl-10 rounded-full"
@@ -69,22 +76,26 @@ const ChatLists = () => {
     chatLists.map((item) => (item.isActive = false));
     findChat.isActive = !findChat.isActive;
 
-    setChatLists((prevChatLists) => [...prevChatLists]);
+    setChatLists([...chatLists]);
   }
 
   return (
     <>
       <ul className="flex-1">
-        {chatLists.map((item) => (
-          <li key={item.id} className="border-b">
-            <ContactList classActive={item.isActive} contacts={{ ...item }}>
-              <div
-                className="stretched-link"
-                onClick={() => selectChatContact(item.id)}
-              ></div>
-            </ContactList>
-          </li>
-        ))}
+        {!chatLists.length && (
+          <li className="px-24 py-6 text-center">No Messages Found...</li>
+        )}
+        {!!chatLists.length &&
+          chatLists.map((item) => (
+            <li key={item.id} className="relative border-b">
+              <ContactList classActive={item.isActive} contacts={{ ...item }}>
+                <div
+                  className="stretched-link"
+                  onClick={() => selectChatContact(item.id)}
+                ></div>
+              </ContactList>
+            </li>
+          ))}
       </ul>
     </>
   );
@@ -92,7 +103,7 @@ const ChatLists = () => {
 
 const SideNavContact = () => {
   return (
-    <aside className="h-screen">
+    <aside className={`relative h-screen overflow-hidden transition-all`}>
       <nav className="flex flex-col h-full border-r shadow-sm">
         <div className="flex flex-col justify-between p-4 pb-6 border-b gap-x-4">
           <div className="mb-5 text-2xl font-bold">Messages</div>
