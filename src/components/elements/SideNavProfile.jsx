@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@components/ui/dropdown-menu";
-import { ChatLayoutContext } from "@components/layouts/ChatApp";
+import { ChatLayoutContext } from "@components/context/ChatContext";
 import "boxicons";
 
 const ProfileSection = () => {
