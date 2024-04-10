@@ -6,7 +6,7 @@ import { ChatContextLayout } from "@components/context/ChatContext";
 
 const SidebarLayout = () => {
   return (
-    <div className="relative z-10 flex">
+    <div className="fixed z-[99] flex sm:relative">
       <SideNavProfile />
       <SideNavContact />
     </div>
@@ -18,7 +18,9 @@ const ChatLayout = ({ children }) => {
     <ChatContextLayout>
       <div className={ChatAppCss.wrapper}>
         <SidebarLayout />
-        <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+        <main className="flex-1 p-6 pl-24 overflow-y-auto sm:pl-6">
+          {children}
+        </main>
       </div>
     </ChatContextLayout>
   );

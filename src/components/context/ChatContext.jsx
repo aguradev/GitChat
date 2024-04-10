@@ -13,6 +13,23 @@ export const ChatContextLayout = ({ children }) => {
     setSideContactActive,
   };
 
+  const responsiveSideContact = (event) => {
+    if (window.innerWidth <= 800) {
+      setSideContactActive(false);
+      return;
+    }
+
+    setSideContactActive(true);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", responsiveSideContact);
+
+    return () => {
+      window.removeEventListener("resize", responsiveSideContact);
+    };
+  }, []);
+
   return (
     <ChatLayoutContext.Provider value={valueProvider}>
       {children}

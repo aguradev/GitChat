@@ -110,7 +110,9 @@ const SideNavContact = () => {
         sideContactActive ? "w-[400px]" : "w-0"
       }`}
     >
-      <nav className={`flex flex-col h-full border-r shadow-sm`}>
+      <nav
+        className={`flex flex-col h-full border-r shadow-sm dark:bg-zinc-950 bg-white`}
+      >
         <div
           className={`ease-linear duration-200 ${
             sideContactActive ? "opacity-100" : "opacity-0 invisible"

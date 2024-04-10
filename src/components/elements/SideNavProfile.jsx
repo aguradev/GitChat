@@ -24,7 +24,7 @@ const ProfileSection = () => {
           <AvatarImage src={avatar_url} />
         </Avatar>
 
-        <DropdownMenuContent>
+        <DropdownMenuContent className="z-[99] translate-x-4">
           <DropdownMenuLabel>Settings</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
