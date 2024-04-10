@@ -1,11 +1,13 @@
 import SideNavContact from "@components/elements/SideNavContact";
 import ChatAppCss from "@/assets/css/chatApp.module.css";
-import SideNavProfile from "../elements/SideNavProfile";
+import SideNavProfile from "@components/elements/SideNavProfile";
 import { createContext, useState } from "react";
+import PropTypes from "prop-types";
+
 const chatContextValue = {
   setSideContactActive: () => null,
 };
-export const ChatLayoutContext = createContext(chatContextValue);
+const ChatLayoutContext = createContext(chatContextValue);
 
 const ChatLayout = ({ children }) => {
   const [sideContactActive, setSideContactActive] = useState(true);
@@ -27,4 +29,8 @@ const ChatLayout = ({ children }) => {
   );
 };
 
-export { ChatLayout };
+ChatLayout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export { ChatLayoutContext, ChatLayout };

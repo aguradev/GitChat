@@ -1,7 +1,8 @@
 import { Avatar, AvatarImage } from "@components/ui/avatar";
+import PropTypes from "prop-types";
 
 const ContactList = (props) => {
-  const { classActive, className = "", contacts, children } = props;
+  const { classActive, className, contacts, children } = props;
   const { profile, firstName, lastName } = contacts;
 
   const shorterText = (text) => {
@@ -30,6 +31,17 @@ const ContactList = (props) => {
       {children}
     </figure>
   );
+};
+
+ContactList.propTypes = {
+  classActive: PropTypes.bool,
+  className: PropTypes.string,
+  contacts: PropTypes.shape({
+    profile: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.elementType]),
 };
 
 export default ContactList;
