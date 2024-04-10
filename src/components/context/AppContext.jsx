@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import supabase from "@/services/supabase";
+import PropsTypes from "prop-types";
 
 const initalState = {
   theme: "system",
@@ -76,6 +77,12 @@ export function AppContext({
     </ThemeProviderContext.Provider>
   );
 }
+
+AppContext.propTypes = {
+  defaultTheme: PropsTypes.string,
+  storageKey: PropsTypes.string,
+  children: PropsTypes.element,
+};
 
 export const UseAppContext = () => {
   const context = useContext(ThemeProviderContext);

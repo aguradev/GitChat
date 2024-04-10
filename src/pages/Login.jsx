@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   async function handleOauthSignIn(provider) {
     try {
-      const { data, err } = await supabaseConfig.auth.signInWithOAuth({
+      const { err } = await supabaseConfig.auth.signInWithOAuth({
         provider: provider,
         options: {
           redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
