@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import PropsTypes from "prop-types";
 const chatContextValue = {
   setSideContactActive: () => null,
@@ -6,7 +6,7 @@ const chatContextValue = {
 
 export const ChatLayoutContext = createContext(chatContextValue);
 export const ChatContextLayout = ({ children }) => {
-  const [sideContactActive, setSideContactActive] = useState(true);
+  const [sideContactActive, setSideContactActive] = useState(false);
 
   const valueProvider = {
     sideContactActive,

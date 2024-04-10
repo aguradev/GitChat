@@ -106,16 +106,14 @@ const SideNavContact = () => {
   const { sideContactActive } = useContext(ChatLayoutContext);
   return (
     <aside
-      className={`relative h-screen overflow-hidden ease-in-out duration-300 ${
-        !sideContactActive ? "w-0" : "w-[400px]"
+      className={`relative h-screen overflow-hidden duration-300 ${
+        sideContactActive ? "w-[400px]" : "w-0"
       }`}
     >
       <nav className={`flex flex-col h-full border-r shadow-sm`}>
         <div
           className={`ease-linear duration-200 ${
-            !sideContactActive
-              ? "opacity-0 invisible"
-              : "opacity-100 visible delay-200"
+            sideContactActive ? "opacity-100" : "opacity-0 invisible"
           }`}
         >
           <div className="flex flex-col justify-between p-4 pb-6 border-b gap-x-4 ">
