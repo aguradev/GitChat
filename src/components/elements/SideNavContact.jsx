@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Input } from "@components/ui/input";
 import ContactList from "./ContactList";
 import { UseAppContext } from "@components/context/AppContext";
+import { ChatLayoutContext } from "@components/context/ChatContext";
 import "boxicons";
 
 const SearchChatInput = () => {
@@ -81,13 +82,13 @@ const ChatLists = () => {
 
   return (
     <>
-      <ul className="flex-1">
+      <ul className="flex-1 overflow-hidden">
         {!chatLists.length && (
           <li className="px-24 py-6 text-center">No Messages Found...</li>
         )}
         {!!chatLists.length &&
           chatLists.map((item) => (
-            <li key={item.id} className="relative border-b">
+            <li key={item.id} className={`relative border-b duration-300`}>
               <ContactList classActive={item.isActive} contacts={{ ...item }}>
                 <div
                   className="stretched-link"
@@ -102,15 +103,28 @@ const ChatLists = () => {
 };
 
 const SideNavContact = () => {
+  const { sideContactActive } = useContext(ChatLayoutContext);
   return (
-    <aside className={`relative h-screen overflow-hidden transition-all`}>
-      <nav className="flex flex-col h-full border-r shadow-sm">
-        <div className="flex flex-col justify-between p-4 pb-6 border-b gap-x-4">
-          <div className="mb-5 text-2xl font-bold">Messages</div>
-          <SearchChatInput />
-        </div>
+    <aside
+      className={`relative h-screen overflow-hidden ease-in-out duration-300 ${
+        !sideContactActive ? "w-0" : "w-[400px]"
+      }`}
+    >
+      <nav className={`flex flex-col h-full border-r shadow-sm`}>
+        <div
+          className={`ease-linear duration-200 ${
+            !sideContactActive
+              ? "opacity-0 invisible"
+              : "opacity-100 visible delay-200"
+          }`}
+        >
+          <div className="flex flex-col justify-between p-4 pb-6 border-b gap-x-4 ">
+            <div className="mb-5 text-2xl font-bold">Messages</div>
+            <SearchChatInput />
+          </div>
 
-        <ChatLists />
+          <ChatLists />
+        </div>
       </nav>
     </aside>
   );

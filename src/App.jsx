@@ -20,7 +20,6 @@ function App() {
       const timerLoading = setTimeout(() => setLoading(false), 1000);
       return () => clearInterval(timerLoading);
     }
-
     return;
   }, [loading]);
 

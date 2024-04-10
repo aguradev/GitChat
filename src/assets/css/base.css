@@ -19,11 +19,11 @@
     }
 
     .message_person_name {
-      @apply mb-1 text-lg font-bold select-none;
+      @apply mb-1 text-lg font-bold select-none text-nowrap;
     }
 
     .message_description {
-      @apply text-sm select-none;
+      @apply text-sm select-none text-nowrap;
     }
   }
 

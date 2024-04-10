@@ -2,19 +2,13 @@ import SideNavContact from "@components/elements/SideNavContact";
 import ChatAppCss from "@/assets/css/chatApp.module.css";
 import SideNavProfile from "@components/elements/SideNavProfile";
 import PropTypes from "prop-types";
-import {
-  ChatContextLayout,
-  ChatLayoutContext,
-} from "@components/context/ChatContext";
-import { useContext } from "react";
+import { ChatContextLayout } from "@components/context/ChatContext";
 
 const SidebarLayout = () => {
-  const { sideContactActive } = useContext(ChatLayoutContext);
-
   return (
     <div className="relative z-10 flex">
       <SideNavProfile />
-      {sideContactActive && <SideNavContact />}
+      <SideNavContact />
     </div>
   );
 };
