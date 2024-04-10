@@ -3,6 +3,30 @@
 @tailwind utilities;
 
 @layer components {
+  .stretched-link {
+    @apply after:content-[""] after:absolute after:inset-0 after:z-10 after:cursor-pointer after:select-none;
+  }
+
+  .message_list_card {
+    @apply relative flex items-center gap-4 py-3 pl-6 pr-12;
+
+    &.active {
+      @apply dark:bg-zinc-800 bg-zinc-100;
+    }
+
+    &:hover {
+      @apply dark:bg-zinc-800 bg-zinc-100;
+    }
+
+    .message_person_name {
+      @apply mb-1 text-lg font-bold select-none;
+    }
+
+    .message_description {
+      @apply text-sm select-none;
+    }
+  }
+
   .small-container {
     @apply max-w-[800px] mx-auto;
   }

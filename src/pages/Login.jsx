@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import supabase from "@/services/supabase";
+import ThemeToggle from "@/components/elements/ThemeToggle";
 import "boxicons";
 
 const LoginPage = () => {
@@ -24,6 +25,16 @@ const LoginPage = () => {
 
   return (
     <>
+      <nav className="p-4">
+        <div className="flex items-center justify-between mx-auto small-container">
+          <div className="text-2xl font-bold">GitChat 💬</div>
+
+          <div>
+            <ThemeToggle />
+          </div>
+        </div>
+      </nav>
+
       <section className={`max-w-[500px] mx-auto py-72 px-2`}>
         <h1 className="text-center h1">Welcome to GitChat 💬</h1>
         <div className="flex flex-col gap-y-3">

@@ -4,47 +4,11 @@ import supabase from "@/services/supabase";
 import LoaderSection from "@/components/elements/Loader";
 import LoginPage from "@/pages/Login";
 import Home from "@/pages/Home";
-import LayoutApp from "./components/layouts/main";
+import { UseAppContext } from "@components/context/AppContext";
 
 function App() {
-  const [userSession, setUserSession] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function updateStateLoading() {
-      await new Promise((res) => {
-        setTimeout(() => {
-          setLoading(false);
-          res(true);
-        }, 1500);
-      });
-    }
-
-    async function getSessionUser() {
-      const { data } = await supabase.auth.getSession();
-
-      if (data) {
-        const { session } = data;
-        setUserSession(session);
-
-        const {
-          data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-          setUserSession(session?.user);
-        });
-
-        await updateStateLoading();
-
-        return () => subscription.unsubscribe();
-      }
-
-      await updateStateLoading();
-
-      return;
-    }
-
-    getSessionUser();
-  }, []);
+  const { userSession } = UseAppContext();
 
   async function SignOutHandler() {
     await supabase.auth.signOut();
@@ -62,20 +26,13 @@ function App() {
 
   return (
     <>
-      <LayoutApp>
-        <main className="relative">
-          {loading ? (
-            <LoaderSection />
-          ) : userSession ? (
-            <Home
-              user={userSession.user_metadata}
-              logoutEvent={SignOutHandler}
-            />
-          ) : (
-            <LoginPage />
-          )}
-        </main>
-      </LayoutApp>
+      {loading ? (
+        <LoaderSection />
+      ) : userSession ? (
+        <Home logoutEvent={SignOutHandler} />
+      ) : (
+        <LoginPage />
+      )}
     </>
   );
 }

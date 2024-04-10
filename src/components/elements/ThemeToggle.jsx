@@ -1,6 +1,6 @@
 import { Button } from "@components/ui/button";
 import "boxicons";
-import { UseTheme } from "@/components/provider/theme";
+import { UseAppContext } from "@/components/context/AppContext";
 import { useState } from "react";
 
 function DarkMode() {
@@ -12,7 +12,7 @@ function LightMode() {
 }
 
 export default function ThemeToggle() {
-  const { setTheme } = UseTheme();
+  const { setTheme } = UseAppContext();
   const [statusTheme, setStatusTheme] = useState("system");
 
   useState(() => {

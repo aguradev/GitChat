@@ -1,13 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import supabase from "@/services/supabase";
 
 const initalState = {
   theme: "system",
   setTheme: () => null,
+  userSession: null,
 };
 
 const ThemeProviderContext = createContext(initalState);
 
-export function ThemeProvider({
+export function AppContext({
   defaultTheme = "system",
   storageKey = "ui-theme",
   children,
@@ -16,6 +18,30 @@ export function ThemeProvider({
   const [theme, setTheme] = useState(
     () => localStorage.getItem(storageKey) || defaultTheme
   );
+
+  const [userSession, setUserSession] = useState(null);
+
+  useEffect(() => {
+    async function getSessionUser() {
+      const { data } = await supabase.auth.getSession();
+
+      if (data) {
+        const { session } = data;
+        setUserSession(session);
+
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+          setUserSession(session?.user);
+        });
+
+        return () => subscription.unsubscribe();
+      }
+      return;
+    }
+
+    getSessionUser();
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -41,6 +67,7 @@ export function ThemeProvider({
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
+    userSession,
   };
 
   return (
@@ -50,7 +77,7 @@ export function ThemeProvider({
   );
 }
 
-export const UseTheme = () => {
+export const UseAppContext = () => {
   const context = useContext(ThemeProviderContext);
 
   if (context === undefined) {
