@@ -1,11 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import supabase from "@/services/supabase";
+import { supabase } from "@/services/supabase";
 import PropsTypes from "prop-types";
 
 const initalState = {
   theme: "system",
   setTheme: () => null,
   userSession: null,
+  loadingState: {
+    loading: true,
+    setLoading: () => null,
+  },
 };
 
 const ThemeProviderContext = createContext(initalState);
@@ -21,6 +25,7 @@ export function AppContext({
   );
 
   const [userSession, setUserSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getSessionUser() {
@@ -62,6 +67,14 @@ export function AppContext({
     root.classList.add(theme);
   }, [theme]);
 
+  useEffect(() => {
+    if (loading) {
+      const timerLoading = setTimeout(() => setLoading(false), 1000);
+      return () => clearInterval(timerLoading);
+    }
+    return;
+  }, [loading]);
+
   const value = {
     theme,
     setTheme: (theme) => {
@@ -69,6 +82,10 @@ export function AppContext({
       setTheme(theme);
     },
     userSession,
+    loadingState: {
+      loading,
+      setLoading: (status) => setLoading(status),
+    },
   };
 
   return (

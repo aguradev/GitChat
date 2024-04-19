@@ -5,6 +5,7 @@ const chatContextValue = {
 };
 
 export const ChatLayoutContext = createContext(chatContextValue);
+
 export const ChatContextLayout = ({ children }) => {
   const [sideContactActive, setSideContactActive] = useState(false);
 
@@ -13,7 +14,7 @@ export const ChatContextLayout = ({ children }) => {
     setSideContactActive,
   };
 
-  const responsiveSideContact = (event) => {
+  const responsiveSideContact = () => {
     if (window.innerWidth <= 800) {
       setSideContactActive(false);
       return;
@@ -24,6 +25,7 @@ export const ChatContextLayout = ({ children }) => {
 
   useEffect(() => {
     window.addEventListener("resize", responsiveSideContact);
+    responsiveSideContact();
 
     return () => {
       window.removeEventListener("resize", responsiveSideContact);

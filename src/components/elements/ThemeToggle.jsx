@@ -22,7 +22,6 @@ export default function ThemeToggle() {
   }, []);
 
   function changeTheme() {
-    console.log("change themes");
     const conditionChange =
       !localStorage.getItem("ui-theme") ||
       localStorage.getItem("ui-theme") === "dark";

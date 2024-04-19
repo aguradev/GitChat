@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Input } from "@components/ui/input";
-import ContactList from "./ContactList";
+import ContactProfile from "./ContactProfile";
 import { UseAppContext } from "@components/context/AppContext";
 import { ChatLayoutContext } from "@components/context/ChatContext";
 import "boxicons";
@@ -89,12 +89,15 @@ const ChatLists = () => {
         {!!chatLists.length &&
           chatLists.map((item) => (
             <li key={item.id} className={`relative border-b duration-300`}>
-              <ContactList classActive={item.isActive} contacts={{ ...item }}>
+              <ContactProfile
+                classActive={item.isActive}
+                contacts={{ ...item }}
+              >
                 <div
                   className="stretched-link"
                   onClick={() => selectChatContact(item.id)}
                 ></div>
-              </ContactList>
+              </ContactProfile>
             </li>
           ))}
       </ul>

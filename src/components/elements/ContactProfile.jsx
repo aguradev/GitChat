@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage } from "@components/ui/avatar";
 import PropTypes from "prop-types";
 
-const ContactList = (props) => {
+export default function ContactProfile(props) {
   const { classActive, className, contacts, children } = props;
   const { profile, firstName, lastName } = contacts;
 
@@ -31,9 +31,9 @@ const ContactList = (props) => {
       {children}
     </figure>
   );
-};
+}
 
-ContactList.propTypes = {
+ContactProfile.propTypes = {
   classActive: PropTypes.bool,
   className: PropTypes.string,
   contacts: PropTypes.shape({
@@ -43,5 +43,3 @@ ContactList.propTypes = {
   }),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.elementType]),
 };
-
-export default ContactList;

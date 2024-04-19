@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import supabase from "@/services/supabase";
+import { supabase } from "@/services/supabase";
 import ThemeToggle from "@/components/elements/ThemeToggle";
 import "boxicons";
 
