@@ -1,4 +1,3 @@
-// import SideNavContact from "@components/elements/SideNavContact";
 import ChatAppCss from "@/assets/css/chatApp.module.css";
 import PropTypes from "prop-types";
 import { ChatContextLayout } from "@components/context/ChatContext";

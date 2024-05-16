@@ -31,7 +31,7 @@ const Home = () => {
     }
 
     function channelGlobalMessage() {
-      const channelChats = supabase
+      supabase
         .channel("custom-all-channel")
         .on(
           "postgres_changes",
@@ -54,7 +54,7 @@ const Home = () => {
 
   return (
     <ChatLayout>
-      <section className="flex flex-col h-screen">
+      <section className="relative flex flex-col h-screen overflow-hidden">
         <HeaderContact />
         <ChatLists messages={messageLists} chatListsRef={chatListRef} />
         <InputMessage />
