@@ -2,21 +2,28 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/services/supabase";
 import ThemeToggle from "@/components/elements/ThemeToggle";
 import "boxicons";
+import { UseAppContext } from "@/components/context/AppContext";
 
 const LoginPage = () => {
   const supabaseConfig = supabase;
+  const { authUrlState } = UseAppContext();
 
   async function handleOauthSignIn(provider) {
     try {
-      const { err } = await supabaseConfig.auth.signInWithOAuth({
+      const { data, err } = await supabaseConfig.auth.signInWithOAuth({
         provider: provider,
         options: {
+          skipBrowserRedirect: true,
           redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
         },
       });
 
       if (err) {
         throw new Error(err);
+      }
+
+      if (data?.url) {
+        authUrlState.setAuthUrl(data?.url);
       }
     } catch (error) {
       console.error(error);

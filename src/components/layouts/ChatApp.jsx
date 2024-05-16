@@ -15,7 +15,6 @@ const ChatLayout = ({ children }) => {
   return (
     <ChatContextLayout>
       <div className={ChatAppCss.wrapper}>
-        <SidebarLayout />
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </ChatContextLayout>

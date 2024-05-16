@@ -10,6 +10,10 @@ const initalState = {
     loading: true,
     setLoading: () => null,
   },
+  authUrlState: {
+    authUrl: null,
+    setAuthUrl: () => null,
+  },
 };
 
 const ThemeProviderContext = createContext(initalState);
@@ -20,12 +24,22 @@ export function AppContext({
   children,
   ...props
 }) {
+  const x = (window.innerWidth - 800) / 2;
+  const y = (window.innerHeight - 900) / 2;
+
+  const authWindow = window.open(
+    "",
+    "Sign In Account",
+    `width=800,height=900,top=${y},left=${x}`
+  );
+
   const [theme, setTheme] = useState(
     () => localStorage.getItem(storageKey) || defaultTheme
   );
 
   const [userSession, setUserSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [urlAuth, setUrlAuth] = useState(null);
 
   useEffect(() => {
     async function getSessionUser() {
@@ -37,7 +51,11 @@ export function AppContext({
 
         const {
           data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
+        } = supabase.auth.onAuthStateChange((event, session) => {
+          if (session?.user && authWindow) {
+            authWindow.close();
+          }
+          setUrlAuth(null);
           setUserSession(session?.user);
         });
 
@@ -75,6 +93,12 @@ export function AppContext({
     return;
   }, [loading]);
 
+  useEffect(() => {
+    if (urlAuth) {
+      authWindow.location = urlAuth;
+    }
+  }, [urlAuth]);
+
   const value = {
     theme,
     setTheme: (theme) => {
@@ -85,6 +109,10 @@ export function AppContext({
     loadingState: {
       loading,
       setLoading: (status) => setLoading(status),
+    },
+    authUrlState: {
+      urlAuth,
+      setAuthUrl: (url) => setUrlAuth(url),
     },
   };
 

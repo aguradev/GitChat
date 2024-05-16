@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import LoaderSection from "@/components/elements/Loader";
 import LoginPage from "@/pages/Login";
 import Home from "@/pages/Home";

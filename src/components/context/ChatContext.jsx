@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import PropsTypes from "prop-types";
+
 const chatContextValue = {
   setSideContactActive: () => null,
 };
