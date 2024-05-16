@@ -11,33 +11,15 @@ const LoginPage = () => {
 
   async function handleOauthSignIn(provider) {
     try {
-      if (window.innerWidth >= 720) {
-        const { data, err } = await supabaseConfig.auth.signInWithOAuth({
-          provider: provider,
-          options: {
-            skipBrowserRedirect: true,
-            redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
-          },
-        });
+      const { err } = await supabaseConfig.auth.signInWithOAuth({
+        provider: provider,
+        options: {
+          redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
+        },
+      });
 
-        if (err) {
-          throw new Error(err);
-        }
-
-        if (data?.url) {
-          authUrlState.setAuthUrl(data?.url);
-        }
-      } else {
-        const { err } = await supabaseConfig.auth.signInWithOAuth({
-          provider: provider,
-          options: {
-            redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL,
-          },
-        });
-
-        if (err) {
-          throw new Error(err);
-        }
+      if (err) {
+        throw new Error(err);
       }
     } catch (error) {
       console.error(error);

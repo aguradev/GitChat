@@ -56,10 +56,9 @@ export function AppContext({
         const {
           data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
-          if (session?.user && OpenWindowAuth()) {
-            OpenWindowAuth().close();
+          if (event === "SIGNED_IN") {
+            loading(true);
           }
-          setUrlAuth(null);
           setUserSession(session?.user);
         });
 
@@ -96,12 +95,6 @@ export function AppContext({
     }
     return;
   }, [loading]);
-
-  useEffect(() => {
-    if (urlAuth) {
-      OpenWindowAuth().location = urlAuth;
-    }
-  }, [urlAuth]);
 
   const value = {
     theme,
