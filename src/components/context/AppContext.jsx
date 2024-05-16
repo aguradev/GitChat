@@ -57,7 +57,7 @@ export function AppContext({
           data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
           if (session?.user && OpenWindowAuth()) {
-            OpenWindowAuth.close();
+            OpenWindowAuth().close();
           }
           setUrlAuth(null);
           setUserSession(session?.user);
