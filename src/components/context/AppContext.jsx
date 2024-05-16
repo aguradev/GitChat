@@ -56,9 +56,6 @@ export function AppContext({
         const {
           data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
-          if (event === "SIGNED_IN") {
-            setLoading(true);
-          }
           setUserSession(session?.user);
         });
 
