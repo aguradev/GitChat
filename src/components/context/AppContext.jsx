@@ -99,7 +99,7 @@ export function AppContext({
 
   useEffect(() => {
     if (urlAuth) {
-      OpenWindowAuth.location = urlAuth;
+      OpenWindowAuth().location = urlAuth;
     }
   }, [urlAuth]);
 
