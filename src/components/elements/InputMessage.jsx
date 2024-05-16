@@ -1,11 +1,15 @@
 import { useRef } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { UseAppContext } from "../context/AppContext";
+import { supabase } from "@/services/supabase";
 
-export default function InputMessage({ sendMessageEvent }) {
+export default function InputMessage() {
   const inputMessage = useRef(null);
+  const { userSession } = UseAppContext();
+  const supabaseConfig = supabase;
 
-  function submitMessage(event) {
+  async function submitMessage(event) {
     event.preventDefault();
     const input = inputMessage.current;
 
@@ -13,8 +17,20 @@ export default function InputMessage({ sendMessageEvent }) {
       return;
     }
 
-    sendMessageEvent(input.value.trim());
-    input.value = "";
+    try {
+      const { error } = await supabaseConfig
+        .from("global_chat")
+        .insert([{ user_id: userSession.id, caption: input.value.trim() }])
+        .select();
+
+      input.value = "";
+
+      if (error) {
+        throw new Error(error.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

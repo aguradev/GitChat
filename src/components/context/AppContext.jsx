@@ -24,14 +24,18 @@ export function AppContext({
   children,
   ...props
 }) {
-  const x = (window.innerWidth - 800) / 2;
-  const y = (window.innerHeight - 900) / 2;
+  function OpenWindowAuth() {
+    const x = (window.innerWidth - 800) / 2;
+    const y = (window.innerHeight - 900) / 2;
 
-  const authWindow = window.open(
-    "",
-    "Sign In Account",
-    `width=800,height=900,top=${y},left=${x}`
-  );
+    const authWindow = window.open(
+      "",
+      "Sign In Account",
+      `width=800,height=900,top=${y},left=${x}`
+    );
+
+    return authWindow;
+  }
 
   const [theme, setTheme] = useState(
     () => localStorage.getItem(storageKey) || defaultTheme
@@ -52,8 +56,8 @@ export function AppContext({
         const {
           data: { subscription },
         } = supabase.auth.onAuthStateChange((event, session) => {
-          if (session?.user && authWindow) {
-            authWindow.close();
+          if (session?.user && OpenWindowAuth()) {
+            OpenWindowAuth.close();
           }
           setUrlAuth(null);
           setUserSession(session?.user);
@@ -95,7 +99,7 @@ export function AppContext({
 
   useEffect(() => {
     if (urlAuth) {
-      authWindow.location = urlAuth;
+      OpenWindowAuth.location = urlAuth;
     }
   }, [urlAuth]);
 
