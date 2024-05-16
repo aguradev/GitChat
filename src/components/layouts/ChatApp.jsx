@@ -1,15 +1,15 @@
-import SideNavContact from "@components/elements/SideNavContact";
+// import SideNavContact from "@components/elements/SideNavContact";
 import ChatAppCss from "@/assets/css/chatApp.module.css";
 import PropTypes from "prop-types";
 import { ChatContextLayout } from "@components/context/ChatContext";
 
-const SidebarLayout = () => {
-  return (
-    <div className="fixed z-[99] flex sm:relative">
-      <SideNavContact />
-    </div>
-  );
-};
+// const SidebarLayout = () => {
+//   return (
+//     <div className="fixed z-[99] flex sm:relative">
+//       <SideNavContact />
+//     </div>
+//   );
+// };
 
 const ChatLayout = ({ children }) => {
   return (
